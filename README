@@ -1,0 +1,64 @@
+Nicuta Loredana Ionela 325CD
+
+	In abordarea acestie probleme, a fost nevoie sa folosim trei tipuri de 
+design patterne-uri:
+	1. Visitor: folosit in definirea unei metode draw, ce se va aplica tuturor
+formelor ce urmeaza a fi desenate, respectiv in clasa Visitable, functia accept
+ce are rolul de "accepta" formele si de a aplica draw pe ele;
+	2. Factory Shape: folosit in definirea unei noi clase ce va returna prin 
+metoda returnShape, o lista cu toate formele ce urmeaza a fi desenate; Citirea
+se realizeaza in interiorul acestei functii, aceasta primind ca parametru 
+fisierul din care se citesc toate formele;
+	3. Singleton Pattern : reprezinta o clasa, ce nu trebuie instantata, avand
+nevoie numai o singura data de acea clasa; In acest caz, clasa ce va genera 
+lista de forme, va fi de tip Singleton Pattern. Aceasta este instantata in 
+interiorul clasei, si apelul se face prin intermediul unei getter;
+
+	Fiecare forma este o clasa in sine, avand campuri corespunzatoare datelor
+de intrare , un constructor prin care se initializeaza toate aceste campuri si
+functia accept, care va primi ca parametru un Visitor si in functie de tipul de
+forma, va desena forma corespunzatoare; Astfel, avem 8 clase de forme:
+	1. Canvas
+	2. Line
+	3. Square
+	4. Rectangle
+	5. Circle
+	6. Triangle
+	7. Diamond
+	8. Polygon
+	
+	Clasa Point este folosita pentru a retine mai usor coordonatele unui punct,
+avand 2 campuri, ce salveaza valoaea x si y, respectiv un constructor prin care
+initializam cele 2 campuri;
+
+	Clasa RevenueShape reprezinta definirea tuturor metodelor de desenare a 
+formelor; Aceasta implementeaza interfata Visitor si contine toate cele 8 metode
+obtinute prin aplicarea interfetei si contine si un camp de tip BufferedImage
+ce reprezinta imaginea in cadrul careia se vor desena toate formele;
+	1. Metoda de draw pentru canvas seteaza imaginea definita mai sus la dimensiunile
+date, respectiv coloreaza toti pixelii cu culoarea data;
+	2. Matoda de draw pentru linie foloseste algoritmul lui Bresenham pentru a 
+desena o linie intre punctele pStart si pEnd; 
+	3. Metoda de draw pentru patart, salveaza cele 4 puncte ce reprezinta
+colturile patratului si vom trasa linii intre acestea; La final, vom umple forma
+cu culoarea indicata;
+	4. Metoda de draw pentru dreptunghi, este asemanatoarea patratului, diferenta
+fiind data de faptul ca vom seta cele 4 puncte in functie de lungime si latime;
+	5. Metoda de draw pentru cerc foloseste algoritmul lui Bresenham; Pentru 
+implementarea acestui algoritm a fost definita si o metoda in plus, ce va colora
+toate cele 8 puncte cu culoarea de contur. La final se va realiza fill-ul ce 
+foloseste o coada pentru a salva toti vecinii si ii coloreaza pana se ajunge la
+contur;
+	6. Metoda de draw pentru triunghi, va desena doar liniile intre cele 3 puncte
+deja date, si va colora interiorul prin intermediul metodei de floodFill;	
+	7. Matoda de draw pentru romb, seteaza mai intai cele 4 puncte, acestea 
+aflandu-se la o distanta de diagonala_specifica/2 fata de punctul din centru, 
+vom trasa linii intre cele 4 puncte si vom colora interiorul formei apeland metoda
+floodFill;
+	8. Metoda de draw pentru polygon, va trasa linii intre toate cele n puncte
+deja date si va fi apelata mai apoi metoda floodFill pentru punctul din centru;
+
+	
+
+
+	
